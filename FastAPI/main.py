@@ -1,6 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from models import Product
+from database import SessionLocal, engine
+import database_models
+from sqlalchemy.orm import Session
+
 app = FastAPI()
+
+database_models.Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def greet():
@@ -13,17 +19,35 @@ products = [
     Product(id=4,name="headphone",description="Budget headphone",price=99.99,quantity=300),
     Product(id=5,name="monitor",description="Budget monitor",price=199.99,quantity=15)
 ]
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+def init_db():
+    db = SessionLocal()
+    for product in products:
+        db.add(database_models.Product(**product.model_dump()))
+    db.commit()
+# init_db() # use this to import the products 
 
 @app.get("/products")
-def get_all_products():
-    return products
+def get_all_products(db: Session = Depends(get_db)):
+    db_products = db.query(database_models.Product).all()
+    # db = Session()
+    # db.query()
+    return db_products
 
 
 @app.get("/product/{id}")
-def get_product_by_id(id:int):
-    for product in products:
-        if product.id == id:
-            return product
+def get_product_by_id(id:int, db:Session=Depends(get_db)):
+    db_product = db.query(database_models.Product).filter(database_models.Product.id == id).first()
+    # for product in products:
+    #     if product.id == id:
+    if db_product:
+            return db_product
     return "Product not found"
 
 @app.post("/product")
