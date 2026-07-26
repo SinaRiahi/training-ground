@@ -1,0 +1,1 @@
+to launch the server: uvicorn main:app --reload 
