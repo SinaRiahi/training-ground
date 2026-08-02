@@ -1,2 +1,7 @@
 FastAPI/frontend/
 FastAPI/__pycache__/
+Project1/__pycache__/
+node_modules
+dist
+.DS_Store
+.pyc
