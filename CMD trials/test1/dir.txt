@@ -1,0 +1,14 @@
+ Volume in drive C is OS
+ Volume Serial Number is 66D6-8C4C
+
+ Directory of C:\Users\sinar\Mystuffs\Tutorials\training-ground\CMD trials\test1
+
+08/08/2026  05:36 PM    <DIR>          .
+08/08/2026  04:48 PM    <DIR>          ..
+08/08/2026  04:13 PM                10 counter.txt
+08/08/2026  05:36 PM                 0 dir.txt
+08/08/2026  04:08 PM                 0 empty.txt
+08/08/2026  04:07 PM                 8 first.txt
+08/08/2026  04:07 PM                 8 second.txt
+               5 File(s)             26 bytes
+               2 Dir(s)  286,178,848,768 bytes free
